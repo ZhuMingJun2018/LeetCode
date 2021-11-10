@@ -1,8 +1,8 @@
 using NUnit.Framework;
 
-namespace LeetCode.Algorithm.UT
+namespace LeetCode.UT
 {
-    public class UT_704_¶þ·Ö²éÕÒ
+    public class Tests
     {
         [SetUp]
         public void Setup()
@@ -12,7 +12,7 @@ namespace LeetCode.Algorithm.UT
         [Test]
         public void Test1()
         {
-            Assert.Pass();
+            Algorithm._746_MinCostClimbingStairs(1, 2, 10, 11, 100, 1, 100, 1);
         }
     }
 }
