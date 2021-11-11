@@ -365,7 +365,6 @@ namespace LeetCode
 
         #endregion
 
-
         #region 747. 至少是其他数字两倍的最大数 2021-11-11 16:23:52
         public static int _747_DominantIndex(int[] nums)
         {
@@ -373,7 +372,7 @@ namespace LeetCode
             if (len < 2) return 0;
 
             int[] x = (int[])nums.Clone();
-            
+
             Dictionary<int, int> dic = new Dictionary<int, int>();
 
             for (int i = 0; i < nums.Length; i++)
@@ -390,29 +389,65 @@ namespace LeetCode
 
             return -1;
 
-            if (nums.Length == 1) return 0;
-            int max1 = -1, max2 = -1, index = -1, i = 0;
-            foreach (int num in nums)
-            {
-                if (num > max1)
-                {
-                    max2 = max1;
-                    max1 = num;
-                    index = i;
-                }
-                else if (num > max2)
-                {
-                    max2 = num;
-                }
-                i++;
-            }
-            if (2 * max2 <= max1) return index;
-            return -1;
+            //if (nums.Length == 1) return 0;
+            //int max1 = -1, max2 = -1, index = -1, i = 0;
+            //foreach (int num in nums)
+            //{
+            //    if (num > max1)
+            //    {
+            //        max2 = max1;
+            //        max1 = num;
+            //        index = i;
+            //    }
+            //    else if (num > max2)
+            //    {
+            //        max2 = num;
+            //    }
+            //    i++;
+            //}
+            //if (2 * max2 <= max1) return index;
+            //return -1;
         }
 
         #endregion
 
+        #region 937. 重新排列日志文件 2021-11-11 19:46:46
+        public static string[] _937_ReorderLogFiles(params string[] logs)
+        {
+            // 1 
+            List<string> contentList = new List<string>();
+            List<string> contentListTemp = new List<string>();
+            // 2
+            for (int i = 0; i < logs.Length; i++)
+            {
+                if (!char.IsDigit(logs[i].Split(' ', 2)[1][0]))
+                {
+                    contentList.Add(logs[i]);
+                }
+                else
+                {
+                    contentListTemp.Add(logs[i]);
+                }
+            }
+            // 3
+            contentList.Sort((l1, l2) =>
+            {
+                string[] sp1 = l1.Split(' ', 2);
+                string[] sp2 = l2.Split(' ', 2);
 
+                int cmp = sp1[1].CompareTo(sp2[1]);
+                if (cmp != 0) { return cmp; }
+                return sp1[0].CompareTo(sp2[0]);
+
+            });
+
+            // 4
+            contentList.AddRange(contentListTemp);
+
+            // 5
+            return contentList.ToArray();
+        }
+        #endregion
 
 
 
