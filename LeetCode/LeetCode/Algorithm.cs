@@ -286,5 +286,27 @@ namespace LeetCode
         }
 
         #endregion
+
+        #region 905. 按奇偶排序数组 2021-11-11 17:30:51
+        public static int[] _905_SortArrayByParity(int[] nums)
+        {
+            int[] result = new int[nums.Length];
+
+            int left = 0, right = nums.Length - 1;
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] % 2 == 0)
+                {
+                    result[left++] = nums[i];
+                }
+                else
+                {
+                    result[right--] = nums[i];
+                }
+            }
+        }
+
+        #endregion
     }
 }
