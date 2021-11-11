@@ -5,7 +5,7 @@ namespace LeetCode
     public class Algorithm
     {
 
-        #region 35 搜索插入位置 [待解决]
+        #region [待解决] 35 搜索插入位置 
 
         /// <summary>
         /// 
@@ -230,7 +230,14 @@ namespace LeetCode
 
         #endregion
 
-        #region 746 使用最小花费爬楼梯 [待解决]
+        #region [待解决] 746 使用最小花费爬楼梯 
+
+        /// <summary>
+        /// 
+        /// https://leetcode-cn.com/problems/min-cost-climbing-stairs/
+        /// </summary>
+        /// <param name="cost"></param>
+        /// <returns></returns>
         public static int _746_MinCostClimbingStairs(params int[] cost)
         {
             int n = cost.Length;
