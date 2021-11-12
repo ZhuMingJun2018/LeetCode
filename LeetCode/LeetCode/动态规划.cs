@@ -140,6 +140,40 @@ namespace LeetCode
         }
         #endregion
 
+        #region 740. 删除并获得点数
+
+        /// <summary>
+        /// 
+        /// https://leetcode-cn.com/problems/delete-and-earn/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public static int _740_DeleteAndEarn(int[] nums)
+        {
+            int maxVal = nums.Max();
+
+            int[] sum = new int[maxVal + 1];
+            foreach (int val in nums)
+            {
+                sum[val] += val;
+            }
+            return _740_Rob(sum);
+        }
+
+        public static int _740_Rob(int[] nums)
+        {
+            int size = nums.Length;
+            int first = nums[0], second = Math.Max(nums[0], nums[1]);
+            for (int i = 2; i < size; i++)
+            {
+                int temp = second;
+                second = Math.Max(first + nums[i], second);
+                first = temp;
+            }
+            return second;
+        }
+        #endregion
+
         #region 746. 使用最小花费爬楼梯
 
         /// <summary>
