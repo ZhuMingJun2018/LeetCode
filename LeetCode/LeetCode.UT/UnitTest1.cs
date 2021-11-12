@@ -12,9 +12,6 @@ namespace LeetCode.UT
         [Test]
         public void Test1()
         {
-            Algorithm._1005_LargestSumAfterKNegations(
-                4,
-                -4, -2,-3);
         }
     }
 }
