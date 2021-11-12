@@ -12,7 +12,7 @@ namespace LeetCode.UT
         [Test]
         public void Test1()
         {
-            var result = SortAlgorithm._1365_SmallerNumbersThanCurrent(6,5,4,8);
+            var result = SortAlgorithm._1608_SpecialArray(0, 4, 3, 0, 4);
         }
     }
 }

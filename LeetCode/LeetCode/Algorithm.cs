@@ -183,51 +183,6 @@ namespace LeetCode
 
         #endregion
 
-        #region 506 斐波那契数 2021-11-10 20:58:25
-
-        public static int _506_Fib(int n)
-        {
-            if (n == 0) return 0;
-            if (n == 1) return 1;
-
-            return _506_Fib(n - 1) + _506_Fib(n - 2);
-        }
-        public static int _506_Fib1(int n)
-        {
-            double goldenRatio = (1 + Math.Sqrt(5)) / 2;
-            return (int)Math.Round(Math.Pow(goldenRatio, n) / Math.Sqrt(5));
-        }
-        public static int _506_Fib2(int n)
-        {
-            if (n < 2)
-                return n;
-            int[] resArray = new int[n + 1];
-            resArray[0] = 0;
-            resArray[1] = 1;
-            for (int i = 2; i <= n; i++)
-            {
-                resArray[i] = resArray[i - 1] + resArray[i - 2];
-            }
-            return resArray[n];
-        }
-        public static int _506_Fib3(int n)
-        {
-            int a = 0, b = 1;
-
-            if (n < 2) return n;
-
-            int temp = 0;
-            for (int i = 2; i <= n; i++)
-            {
-                temp = b;
-                b = b + a;
-                a = temp;
-            }
-
-            return b;
-        }
-        #endregion
-
         #region 704 二分查找 2021-11-09 23:25:55
         /// <summary>
         /// 二分查找
@@ -292,25 +247,6 @@ namespace LeetCode
             }
             return dp[n];
         }
-        #endregion
-
-        #region 1137 第N个泰波那契数 2021-11-10 20:55:48
-        public static int _1137_Tribonacci(int n)
-        {
-            if (n == 0) return 0;
-            if (n < 3) return 1;
-
-            int[] nums = new int[n + 1];
-            nums[0] = 0;
-            nums[1] = 1;
-            nums[2] = 1;
-            for (int i = 3; i < n + 1; i++)
-            {
-                nums[i] = nums[i - 3] + nums[i - 2] + nums[i - 1];
-            }
-            return nums[n];
-        }
-
         #endregion
 
 

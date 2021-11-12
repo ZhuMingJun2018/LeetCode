@@ -99,6 +99,20 @@ namespace LeetCode
 
         #endregion
 
+        #region 344. 反转字符串 2021-11-12 17:16:16
+        public static void _344_ReverseString(char[] s)
+        {
+            int len = s.Length;
+            for (int i = 0; i < len / 2; i++)
+            {
+                char temp = s[i];
+                s[i] = s[len - i - 1];
+                s[len - i - 1] = temp;
+            }
+        }
+
+        #endregion
+
         #region 349. 两个数组的交集 2021-11-11 14:06:32
 
         public int[] _349_Intersection(int[] nums1, int[] nums2)
@@ -276,6 +290,26 @@ namespace LeetCode
             return ranks;
         }
 
+        #endregion
+
+        #region 557. 反转字符串中的单词 III 2021-11-12 17:19:58
+        public static string _557_ReverseWords(string s)
+        {
+            List<char[]> words = s.Split(' ').ToList().ConvertAll(word => word.ToArray());
+
+            words.ForEach(word =>
+            {
+                int len = word.Length;
+                for (int i = 0; i < len / 2; i++)
+                {
+                    char temp = word[i];
+                    word[i] = word[len - i - 1];
+                    word[len - i - 1] = temp;
+                }
+            });
+
+            return string.Join(" ", words.ConvertAll(word => string.Join("", word)));
+        }
         #endregion
 
         #region 561. 数组拆分 I 2021-11-11 15:19:05
@@ -1014,11 +1048,47 @@ namespace LeetCode
         #endregion
 
         #region 1502. 判断能否形成等差数列 2021-11-12 16:03:23
+        public static bool _1502_CanMakeArithmeticProgression(int[] arr)
+        {
+            Array.Sort(arr);
 
+            int dis = arr[1] - arr[0];
+            for (int i = 2; i < arr.Length; i++)
+            {
+                if (dis != arr[i] - arr[i - 1])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         #endregion
 
         #region 1608. 特殊数组的特征值
 
+        /// <summary>
+        /// 
+        /// https://leetcode-cn.com/problems/special-array-with-x-elements-greater-than-or-equal-x/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public static int _1608_SpecialArray(params int[] nums)
+        {
+            Array.Sort(nums);
+            for (int i = nums.Length; i > 0; i--)
+            {
+                if (nums[i - 1] >= i)
+                {
+                    return i;
+                }
+
+                if (nums[i - 2] == nums[i - 1])
+                {
+                    i--;
+                }
+            }
+            return -1;
+        }
         #endregion
 
         #region 1619. 删除某些元素后的数组均值 2021-11-12 13:46:32
@@ -1045,6 +1115,72 @@ namespace LeetCode
         #endregion
 
 
+        #region 困难
 
+        #region 164. 最大间距 2021-11-12 16:43:55
+        public static int _164_MaximumGap(int[] nums)
+        {
+            if (nums.Length < 2) return 0;
+
+            Array.Sort(nums);
+
+            int max = nums[1] - nums[0];
+
+            for (int i = 2; i < nums.Length; i++)
+            {
+                int temp = nums[i] - nums[i - 1];
+
+                max = Math.Max(max, temp);
+            }
+
+            return max;
+        }
+        #endregion
+
+        #region 857. 雇佣 K 名工人的最低成本
+
+        /// <summary>
+        /// 
+        /// https://leetcode-cn.com/problems/minimum-cost-to-hire-k-workers/
+        /// </summary>
+        /// <param name="quality"></param>
+        /// <param name="wage"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public double MincostToHireWorkers(int[] quality, int[] wage, int k)
+        {
+            double[] rate = new double[quality.Length];
+
+            for (int i = 0; i < quality.Length; i++)
+            {
+                rate[i] = (double)quality[i] / wage[i];
+            }
+
+            double[] rateNew = (double[])rate.Clone();
+            Array.Sort(rateNew);
+
+            for (int i = 0; i < k; i++)
+            {
+
+            }
+
+            return 1;
+        }
+
+        #endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+        #endregion
     }
 }
