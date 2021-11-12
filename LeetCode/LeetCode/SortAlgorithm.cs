@@ -668,8 +668,8 @@ namespace LeetCode
         }
         #endregion
 
-        #region 1619. 删除某些元素后的数组均值 2021-11-12 12:29:42
-        public static int[] _1619_RelativeSortArray(int[] arr1, int[] arr2)
+        #region 1122. 数组的相对排序 2021-11-12 12:29:42
+        public static int[] _1122_RelativeSortArray(int[] arr1, int[] arr2)
         {
             Dictionary<int, int> dic = new Dictionary<int, int>();
 
@@ -703,21 +703,268 @@ namespace LeetCode
         }
         #endregion
 
+        #region 1200. 最小绝对差 2021-11-12 13:19:32
+
+        /// <summary>
+        /// 
+        /// https://leetcode-cn.com/problems/minimum-absolute-difference/
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public static IList<IList<int>> _1200_MinimumAbsDifference(int[] arr)
+        {
+            Array.Sort(arr);
+
+            int min = arr[1] - arr[0];
+
+            IList<IList<int>> result = new List<IList<int>>() { new List<int> { arr[0], arr[1] } };
+
+            for (int i = 2; i < arr.Length; i++)
+            {
+                int tempMin = arr[i] - arr[i - 1];
+
+                if (tempMin < min)
+                {
+                    result = new List<IList<int>>() { new List<int> { arr[i - 1], arr[i] } };
+                    min = tempMin;
+                }
+                else if (tempMin == min)
+                {
+                    result.Add(new List<int> { arr[i - 1], arr[i] });
+                }
+            }
+
+            return result;
+        }
+
+        #endregion
+
         #region 1331. 数组序号转换 2021-11-12 12:40:15
 
-        public static int[] _1331_ArrayRankTransform(int[] arr)
+        public static int[] _1331_ArrayRankTransform(params int[] arr)
         {
+            if (arr.Length == 0) return arr;
+
             int[] arrNew = (int[])arr.Clone();
 
             Array.Sort(arrNew);
 
-            int[] result = new int[arrNew.Length];
+            Dictionary<int, int> dic = new Dictionary<int, int>();
+            int index = 1;
 
+            dic[arrNew[0]] = index;
 
+            for (int i = 1; i < arrNew.Length; i++)
+            {
+                if (arrNew[i - 1] != arrNew[i])
+                {
+                    index++;
+                }
+                dic[arrNew[i]] = index;
+            }
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                arr[i] = dic[arr[i]];
+            }
+
+            return arr;
+        }
+
+        #endregion
+
+        #region 1356. 根据数字二进制下 1 的数目排序 2021-11-12 13:29:21
+        public static int[] _1356_SortByBits(int[] arr)
+        {
+            Func<int, int> get =
+                x =>
+                {
+                    int res = 0;
+                    while (x > 0)
+                    {
+                        res += (x % 2);
+                        x /= 2;
+                    }
+                    return res;
+                };
+
+            Array.Sort(arr, (int1, int2) =>
+             {
+                 int res1 = get(int1);
+                 int res2 = get(int2);
+                 if (res1 < res2) return -1;
+                 else if (res1 > res2) return 1;
+
+                 return int1 < int2 ? -1 : 1;
+             });
+
+            return arr;
+        }
+        #endregion
+
+        #region 1337. 矩阵中战斗力最弱的 K 行
+
+        /// <summary>
+        /// 
+        /// https://leetcode-cn.com/problems/the-k-weakest-rows-in-a-matrix/
+        /// </summary>
+        /// <param name="mat"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public static int[] _1337_KWeakestRows(int[][] mat, int k)
+        {
+            int[] values = new int[mat.Length];
+
+            for (int i = 0; i < mat.Length; i++)
+            {
+                values[i] = mat[i].Sum();
+            }
+
+            int[] valuesNew = (int[])values.Clone();
+            int[] result = new int[k];
+            Array.Sort(valuesNew);
+            Dictionary<int, int> dic = new Dictionary<int, int>();
+            for (int i = 0; i < valuesNew.Length; i++)
+            {
+                dic[valuesNew[i]] = i + 1;
+            }
+
+            for (int i = 0; i < k; i++)
+            {
+                result[i] = dic[valuesNew[i]];
+            }
+
+            return result;
+        }
+        #endregion
+
+        #region 1346. 检查整数及其两倍数是否存在 2021-11-12 14:04:24
+
+        public static bool _1346_CheckIfExist(params int[] arr)
+        {
+            Dictionary<int, int> dic = new Dictionary<int, int>();
+
+            foreach (int item in arr)
+            {
+                dic[item] = dic.ContainsKey(item) ? dic[item] + 1 : 1;
+            }
+
+            foreach (int item in arr)
+            {
+                if (dic.ContainsKey(item * 2))
+                {
+                    if (item == 0 && dic[item] % 2 == 1)
+                    {
+                        continue;
+                    }
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        #endregion
+
+        #region 1365. 有多少小于当前数字的数字 2021-11-12 14:59:09
+        public static int[] _1365_SmallerNumbersThanCurrent(params int[] nums)
+        {
+            int[] numsNew = (int[])nums.Clone();
+
+            Array.Sort(numsNew);
+
+            Dictionary<int, int> dic = new Dictionary<int, int>();
+
+            int pro = numsNew[0];
+            dic[pro] = 0;
+
+            for (int i = 1; i < numsNew.Length; i++)
+            {
+                if (numsNew[i] > pro)
+                {
+                    pro = numsNew[i];
+                    dic[pro] = i;
+                }
+            }
+
+            int[] result = new int[nums.Length];
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                result[i] = dic[nums[i]];
+            }
+
+            return result;
+        }
+        #endregion
+
+        #region 1385. 两个数组间的距离值 2021-11-12 15:08:48
+        public static int _1385_FindTheDistanceValue(int[] arr1, int[] arr2, int d)
+        {
+            int count = 0;
+
+            Array.Sort(arr1);
+            Array.Sort(arr2);
+
+            for (int i = 0; i < arr1.Length; i++)
+            {
+                bool fit = true;
+
+                for (int j = 0; j < arr2.Length; j++)
+                {
+                    if (Math.Abs(arr1[i] - arr2[j]) <= d)
+                    {
+                        fit = false;
+                        break;
+                    }
+                }
+
+                if (fit) count++;
+            }
+
+            return count;
+        }
+        #endregion
+
+        #region 1403. 非递增顺序的最小子序列 2021-11-12 15:22:19
+        public static IList<int> _1403_MinSubsequence(int[] nums)
+        {
+            Array.Sort(nums);
+
+            int sum = nums.Sum();
+            int temSum = 0;
+            int i = 0;
+            for (i = nums.Length - 1; i > -1; i--)
+            {
+                temSum += nums[i];
+                sum -= nums[i];
+
+                if (temSum > sum)
+                {
+                    break;
+                }
+            }
+
+            return nums.ToList().GetRange(i, nums.Length - i);
         }
 
         #endregion
 
 
+
+
+
+
+
+        #region 1619. 删除某些元素后的数组均值 2021-11-12 13:46:32
+        public static double _1619_TrimMean(int[] arr)
+        {
+            Array.Sort(arr);
+
+            int value = (int)(arr.Length * 0.05);
+
+            return arr.ToList().GetRange(value, arr.Length - 2 * value).Average();
+        }
+        #endregion
     }
 }
