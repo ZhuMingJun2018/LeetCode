@@ -251,23 +251,6 @@ namespace LeetCode
         }
         #endregion
 
-        #region 977 有序数组的平方 2021-11-10 20:59:41
-
-        /// <summary>
-        /// 
-        /// https://leetcode-cn.com/problems/squares-of-a-sorted-array/
-        /// </summary>
-        /// <param name="nums"></param>
-        /// <returns></returns>
-        public static int[] _977_SortedSquares(params int[] nums)
-        {
-            var result = nums.Select(num => num * num).ToList();
-            result.Sort();
-
-            return result.ToArray();
-        }
-        #endregion
-
         #region 1137 第N个泰波那契数 2021-11-10 20:55:48
         public static int _1137_Tribonacci(int n)
         {
@@ -371,31 +354,231 @@ namespace LeetCode
         public static string[] _937_ReorderLogFiles(params string[] logs)
         {
             Array.Sort(logs, (log1, log2) =>
-             {
-                 string[] str1 = log1.Split(" ", 2);
-                 string[] str2 = log2.Split(" ", 2);
-                 bool isDigit1 = char.IsDigit(str1[1][0]);
-                 bool isDigit2 = char.IsDigit(str2[1][0]);
-                 if (!isDigit1 && !isDigit2)
-                 {
-                     int cmp = str1[1].CompareTo(str2[1]);
-                     if (cmp != 0) return cmp;
-                     return str1[0].CompareTo(str2[0]);
-                 }
-                 return isDigit1 ? (isDigit2 ? 0 : 1) : -1;
-             });
+            {
+                string[] str1 = log1.Split(" ", 2);
+                string[] str2 = log2.Split(" ", 2);
+                bool isDigit1 = char.IsDigit(str1[1][0]);
+                bool isDigit2 = char.IsDigit(str2[1][0]);
+                if (!isDigit1 && !isDigit2)
+                {
+                    int cmp = str1[1].CompareTo(str2[1]);
+                    if (cmp != 0) return cmp;
+                    return str1[0].CompareTo(str2[0]);
+                }
+                return isDigit1 ? (isDigit2 ? 0 : 1) : -1;
+            });
 
-            return logs;
+
+            List<string> digitalList = new List<string>();
+            List<string> stringList = new List<string>();
+
+            foreach (var log in logs)
+            {
+                var infos = log.Split(" ", 2);
+
+                if (char.IsDigit(infos[1][0]))
+                {
+                    digitalList.Add(log);
+                }
+                else
+                {
+                    stringList.Add(log);
+                }
+            }
+
+            stringList.Sort((s1, s2) =>
+            {
+                string[] str1 = s1.Split(" ", 2);
+                string[] str2 = s2.Split(" ", 2);
+
+                var cmd = str1[1].CompareTo(str2[1]);
+                if (cmd != 0) return cmd;
+                return str1[0].CompareTo(str2[0]);
+            });
+
+            stringList.AddRange(digitalList);
+
+            return stringList.ToArray();
         }
         #endregion
 
         #region 976. 三角形的最大周长 2021-11-12 09:52:05
-        //public static int _976_LargestPerimeter(int[] nums)
-        //{
-        //    Array.Sort(nums);
+
+        /// <summary>
+        /// 
+        /// https://leetcode-cn.com/problems/largest-perimeter-triangle/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public static int _976_LargestPerimeter(int[] nums)
+        {
+            for (int i = nums.Length - 1; i >= 2; --i)
+            {
+                //[如果此条件不满足，i-1 or i-2 再缩小，肯定不会满足 i < i-1 + i-2的条件，所以只能减少 i ]
+                if (nums[i] < nums[i - 1] + nums[i - 2])
+                    return nums[i] + nums[i - 1] + nums[i - 2];
+            }
+            return 0;
+        }
+        #endregion
+
+        #region 977 有序数组的平方 2021-11-10 20:59:41
+
+        /// <summary>
+        /// 
+        /// https://leetcode-cn.com/problems/squares-of-a-sorted-array/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public static int[] _977_SortedSquares(params int[] nums)
+        {
+            nums = nums.Select(num => num * num).ToArray();
+
+            Array.Sort(nums);
+
+            return nums;
+        }
+        #endregion
+
+        #region 1005. K 次取反后最大化的数组和 2021-11-12 10:50:38
+        public static int _1005_LargestSumAfterKNegations(int k, params int[] nums)
+        {
+            Array.Sort(nums);
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (k > 0 && nums[i] < 0)
+                {
+                    k--;
+                    nums[i] = -nums[i];
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            if (k > 0 && k % 2 == 1)
+            {
+                Array.Sort(nums);
+
+                nums[0] = -nums[0];
+            }
+
+            return nums.Sum();
+        }
+
+        #endregion
+
+        #region 1030. 距离顺序排列矩阵单元格
+        /// <summary>
+        /// 
+        /// https://leetcode-cn.com/problems/matrix-cells-in-distance-order/
+        /// </summary>
+        /// <param name="rows"></param>
+        /// <param name="cols"></param>
+        /// <param name="rCenter"></param>
+        /// <param name="cCenter"></param>
+        /// <returns></returns>
+        public static int[][] AllCellsDistOrder(int rows, int cols, int rCenter, int cCenter)
+        {
+            int[] dr = { 1, 1, -1, -1 };
+            int[] dc = { 1, -1, -1, 1 };
+
+            int maxDist = Math.Max(rCenter, rows - 1 - rCenter) + Math.Max(cCenter, cols - 1 - cCenter);
+            int[][] ret = new int[rows * cols][];
+            int row = rCenter, col = cCenter;
+            int index = 0;
+            ret[index++] = new int[] { row, col };
+            for (int dist = 1; dist <= maxDist; dist++)
+            {
+                row--;
+                for (int i = 0; i < 4; i++)
+                {
+                    while ((i % 2 == 0 && row != rCenter) || (i % 2 != 0 && col != cCenter))
+                    {
+                        if (row >= 0 && row < rows && col >= 0 && col < cols)
+                        {
+                            ret[index++] = new int[] { row, col };
+                        }
+                        row += dr[i];
+                        col += dc[i];
+                    }
+                }
+            }
+            return ret;
+        }
+        #endregion
+
+        #region 1051. 高度检查器 2021-11-12 12:22:58
+        public static int _1051_HeightChecker(int[] heights)
+        {
+            int[] heightNew = (int[])heights.Clone();
+
+            Array.Sort(heightNew);
+
+            int count = 0;
+
+            for (int i = 0; i < heights.Length; i++)
+            {
+                if (heights[i]!=heightNew[i])
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+        #endregion
+
+        #region 1619. 删除某些元素后的数组均值 2021-11-12 12:29:42
+        public static int[] _1619_RelativeSortArray(int[] arr1, int[] arr2)
+        {
+            Dictionary<int, int> dic = new Dictionary<int, int>();
+
+            foreach (var item in arr1)
+            {
+                dic[item] = dic.ContainsKey(item) ? dic[item] + 1 : 1;
+            }
+
+            int index = 0;
+            for (int i = 0; i < arr2.Length; i++)
+            {
+                for (int j = 0; j < dic[arr2[i]]; j++)
+                {
+                    arr1[index++] = arr2[i];
+                }
+
+                dic.Remove(arr2[i]);
+            }
+
+            var keys = dic.Keys.ToList();
+            keys.Sort();
+            foreach (var item in keys)
+            {
+                for (int i = 0; i < dic[item]; i++)
+                {
+                    arr1[index++] = item;
+                }
+            }
+
+            return arr1;
+        }
+        #endregion
+
+        #region 1331. 数组序号转换 2021-11-12 12:40:15
+
+        public static int[] _1331_ArrayRankTransform(int[] arr)
+        {
+            int[] arrNew = (int[])arr.Clone();
+
+            Array.Sort(arrNew);
+
+            int[] result = new int[arrNew.Length];
 
 
-        //}
+        }
+
         #endregion
     }
 }
