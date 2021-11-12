@@ -287,6 +287,35 @@ namespace LeetCode
 
         #endregion
 
+
+
+
+
+        #region 888. 公平的糖果棒交换 2021-11-11 17:46:58
+        public static int[] _888_FairCandySwap(int[] aliceSizes, int[] bobSizes)
+        {
+            int aSize = aliceSizes.Sum();
+            int bSize = bobSizes.Sum();
+            int temp = (bSize - aSize) / 2;
+
+            int[] result = new int[2];
+
+            foreach (var alice in aliceSizes)
+            {
+                foreach (var bob in bobSizes)
+                {
+                    if (bob == alice + temp)
+                    {
+                        result[0] = alice;
+                        result[1] = bob;
+                        break;
+                    }
+                }
+            }
+            return result;
+        }
+        #endregion
+
         #region 905. 按奇偶排序数组 2021-11-11 17:30:51
         public static int[] _905_SortArrayByParity(int[] nums)
         {
@@ -305,8 +334,68 @@ namespace LeetCode
                     result[right--] = nums[i];
                 }
             }
+
+            return result;
         }
 
+        #endregion
+
+        #region 922. 按奇偶排序数组 II 2021-11-11 17:47:32
+        public static int[] _922_SortArrayByParityII(int[] nums)
+        {
+            int even = 0;
+            int odd = 1;
+
+            int[] result = new int[nums.Length];
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] % 2 == 0)
+                {
+                    result[even] = nums[i];
+                    even += 2;
+                }
+                else
+                {
+                    result[odd] = nums[i];
+                    odd += 2;
+                }
+            }
+
+            return result;
+        }
+
+        #endregion
+
+        #region 937. 重新排列日志文件 2021-11-11 17:51:32
+        public static string[] _937_ReorderLogFiles(params string[] logs)
+        {
+            Array.Sort(logs, (log1, log2) =>
+             {
+                 string[] str1 = log1.Split(" ", 2);
+                 string[] str2 = log2.Split(" ", 2);
+                 bool isDigit1 = char.IsDigit(str1[1][0]);
+                 bool isDigit2 = char.IsDigit(str2[1][0]);
+                 if (!isDigit1 && !isDigit2)
+                 {
+                     int cmp = str1[1].CompareTo(str2[1]);
+                     if (cmp != 0) return cmp;
+                     return str1[0].CompareTo(str2[0]);
+                 }
+                 return isDigit1 ? (isDigit2 ? 0 : 1) : -1;
+             });
+
+            return logs;
+        }
+        #endregion
+
+        #region 976. 三角形的最大周长 2021-11-12 09:52:05
+        //public static int _976_LargestPerimeter(int[] nums)
+        //{
+        //    Array.Sort(nums);
+
+
+        //}
         #endregion
     }
 }
