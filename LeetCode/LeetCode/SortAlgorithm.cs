@@ -930,11 +930,12 @@ namespace LeetCode
         public static IList<int> _1403_MinSubsequence(int[] nums)
         {
             Array.Sort(nums);
+            nums = nums.Reverse().ToArray();
 
             int sum = nums.Sum();
             int temSum = 0;
             int i = 0;
-            for (i = nums.Length - 1; i > -1; i--)
+            for (i = 0; i < nums.Length; i++)
             {
                 temSum += nums[i];
                 sum -= nums[i];
@@ -944,17 +945,81 @@ namespace LeetCode
                     break;
                 }
             }
-
-            return nums.ToList().GetRange(i, nums.Length - i);
+            return nums.ToList().GetRange(0, i + 1);
         }
 
         #endregion
 
+        #region 1460. 通过翻转子数组使两个数组相等 2021-11-12 15:42:45
+        public static bool _1460_CanBeEqual(int[] target, int[] arr)
+        {
+            Dictionary<int, int> dic = new Dictionary<int, int>();
 
+            foreach (var item in target)
+            {
+                dic[item] = dic.ContainsKey(item) ? dic[item] + 1 : 1;
+            }
 
+            foreach (var item in arr)
+            {
+                if (dic.ContainsKey(item))
+                {
+                    if (dic[item] == 0)
+                    {
+                        return false;
+                    }
 
+                    dic[item]--;
+                }
+                else
+                {
+                    return false;
+                }
+            }
 
+            return true;
+        }
+        #endregion
 
+        #region 1464. 数组中两元素的最大乘积 2021-11-12 15:54:35
+        public static int _1464_MaxProduct(int[] nums)
+        {
+            Array.Sort(nums);
+
+            return (nums[nums.Length - 1] - 1) * (nums[nums.Length - 2] - 1);
+        }
+        #endregion
+
+        #region 1491. 去掉最低工资和最高工资后的工资平均值 2021-11-12 15:58:44
+        public static double _1491_Average(int[] salary)
+        {
+            int sum = salary[0];
+            int min = salary[0];
+            int max = salary[0];
+
+            for (int i = 1; i < salary.Length; i++)
+            {
+                sum += salary[i];
+
+                if (salary[i] > max) max = salary[i];
+                else if (salary[i] < min) min = salary[i];
+            }
+
+            sum -= max;
+            sum -= min;
+
+            return (double)sum / (salary.Length - 2);
+        }
+
+        #endregion
+
+        #region 1502. 判断能否形成等差数列 2021-11-12 16:03:23
+
+        #endregion
+
+        #region 1608. 特殊数组的特征值
+
+        #endregion
 
         #region 1619. 删除某些元素后的数组均值 2021-11-12 13:46:32
         public static double _1619_TrimMean(int[] arr)
@@ -966,5 +1031,20 @@ namespace LeetCode
             return arr.ToList().GetRange(value, arr.Length - 2 * value).Average();
         }
         #endregion
+
+        #region 1636. 按照频率将数组升序排序
+
+        #endregion
+
+        #region 1710. 卡车上的最大单元数
+
+        #endregion
+
+        #region 1859. 将句子排序
+
+        #endregion
+
+
+
     }
 }
