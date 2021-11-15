@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LeetCode
 {
-    public class SortAlgorithm
+    public class 排序
     {
         #region 88. 合并两个有序数组 2021-11-11 13:29:33
         public static void Merge(int[] nums1, int m, int[] nums2, int n)
@@ -95,6 +95,31 @@ namespace LeetCode
             }
 
             return n;
+        }
+
+        #endregion
+
+        #region 295. 数据流的中位数
+
+        /// <summary>
+        /// https://leetcode-cn.com/problems/find-median-from-data-stream/
+        /// </summary>
+        public class _295_MedianFinder
+        {
+            public _295_MedianFinder()
+            {
+
+            }
+
+            public void AddNum(int num)
+            {
+
+            }
+
+            public double FindMedian()
+            {
+                return 0;
+            }
         }
 
         #endregion

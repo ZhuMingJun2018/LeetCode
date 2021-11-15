@@ -9,10 +9,15 @@ namespace LeetCode.UT
         {
         }
 
+        private static int[] CreateArray(params int[] ts)
+        {
+            return ts;
+        }
+
         [Test]
         public void Test1()
         {
-            var result = SortAlgorithm._1608_SpecialArray(0, 4, 3, 0, 4);
+            程序员面试金典.Class1.Demo_连续中值();
         }
     }
 }
