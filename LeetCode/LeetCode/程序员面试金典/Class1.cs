@@ -268,6 +268,10 @@ namespace LeetCode.程序员面试金典
         }
         #endregion
 
+        #region 面试题 17.04. 消失的数字
+
+        #endregion
+
         #region 17.14. 最小K个数 2021-11-15 17:27:25
         public int[] SmallestK(int[] arr, int k)
         {
@@ -282,6 +286,9 @@ namespace LeetCode.程序员面试金典
 
         #region 17.20. 连续中值 
 
+        /// <summary>
+        /// https://leetcode-cn.com/problems/continuous-median-lcci/
+        /// </summary>
         public static void Demo_连续中值()
         {
             MedianFinder finder = new MedianFinder();
