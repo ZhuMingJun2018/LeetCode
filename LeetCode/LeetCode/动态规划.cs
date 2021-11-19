@@ -8,6 +8,13 @@ namespace LeetCode
 {
     public class 动态规划
     {
+        #region 53. 最大子序和
+        //public int MaxSubArray(int[] nums)
+        //{
+
+        //}
+        #endregion
+
         #region 70. 爬楼梯 2021-11-12 17:57:55
 
         /// <summary>
