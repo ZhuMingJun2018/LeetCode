@@ -13,9 +13,9 @@ namespace LeetCode
 
         public void 从不订购的客户()
         {
-            from customer in Customers
-            where Orders.FirstOrDefault(order => order.CustomerId == customer.Id) == null
-            select customer;
+          var ans=  from customer in Customers
+                    where Orders.FirstOrDefault(order => order.CustomerId == customer.Id) == null
+                    select customer;
         }
 
         public DbSet<Customer> Customers { get; set; }
