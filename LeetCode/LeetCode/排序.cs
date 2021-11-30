@@ -240,6 +240,39 @@ namespace LeetCode
 
         #endregion
 
+        #region M 400. 第 N 位数字
+        public int FindNthDigit(int n)
+        {
+            int proNum = 0;
+            for (int i = 1; ; i++)
+            {
+                int currentNums = (int)(Math.Pow(10, i) - Math.Pow(10, i - 1)) * i;
+
+                if (n > proNum + currentNums)
+                {
+                    proNum += currentNums;
+                    continue;
+                }
+                int currentRootValue = (int)Math.Pow(10, i - 1) - 1;
+                int value = currentRootValue + (n - proNum) / i;
+                int index = (n - proNum) % i - 1;
+                if ((n - proNum) % i > 0)
+                {
+                    value += 1;
+                }
+                else
+                {
+                    index += 1;
+                }
+                string valueStr = value.ToString();
+                char ansChat = valueStr[index];
+                int ans = int.Parse(ansChat.ToString());
+                return ans;
+            }
+        }
+
+        #endregion
+
         #region 414. 第三大的数 2021-11-11 14:43:06
 
         public static int _414_ThirdMax(int[] nums)

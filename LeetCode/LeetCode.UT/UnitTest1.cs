@@ -17,7 +17,8 @@ namespace LeetCode.UT
         [Test]
         public void Test1()
         {
-            程序员面试金典.Class1.Demo_连续中值();
+            排序 t = new 排序();
+            t.FindNthDigit(1000);
         }
     }
 }
