@@ -1,4 +1,4 @@
-using NUnit.Framework;
+Ôªøusing NUnit.Framework;
 
 namespace LeetCode.UT
 {
@@ -17,8 +17,8 @@ namespace LeetCode.UT
         [Test]
         public void Test1()
         {
-            ≈≈–Ú t = new ≈≈–Ú();
-            t.FindNthDigit(9);
+            ÊéíÂ∫è t = new ÊéíÂ∫è();
+            t.FindMedianSortedArrays(new int[] { 1, 2 }, new int[] { 3,4 });
         }
     }
 }

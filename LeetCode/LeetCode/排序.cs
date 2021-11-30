@@ -8,6 +8,46 @@ namespace LeetCode
 {
     public class 排序
     {
+        #region H 4. 寻找两个正序数组的中位数 2021-11-30 18:27:40
+
+        /// <summary>
+        /// https://leetcode-cn.com/problems/median-of-two-sorted-arrays/solution/
+        /// </summary>
+        /// <param name="nums1"></param>
+        /// <param name="nums2"></param>
+        /// <returns></returns>
+        public double FindMedianSortedArrays(int[] nums1, int[] nums2)
+        {
+            int len = nums1.Length + nums2.Length;
+            List<int> list = nums1.ToList();
+            int j = 0;
+            for (int i = 0; i < nums2.Length;)
+            {
+                if (j == list.Count)
+                {
+                    list.Add(nums2[i++]);
+                    j++;
+                }
+                else if (nums2[i] <= list[j])
+                {
+                    list.Insert(j++, nums2[i++]);
+                }
+                else if (list[j] < nums2[i])
+                {
+                    j++;
+                }
+            }
+
+            if (len == 0) return 0;
+
+            if (len % 2 == 1) return list[len / 2];
+
+            double ans = (double)(list[len / 2 - 1] + list[len / 2]) / 2;
+            return ans;
+        }
+
+        #endregion
+
         #region 88. 合并两个有序数组 2021-11-11 13:29:33
         public static void Merge(int[] nums1, int m, int[] nums2, int n)
         {
@@ -240,27 +280,29 @@ namespace LeetCode
 
         #endregion
 
-        #region M 400. 第 N 位数字
+        #region M H 400. 第 N 位数字 2021-11-30 18:08:30
+
+        /// <summary>
+        /// https://leetcode-cn.com/problems/nth-digit/submissions/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
         public int FindNthDigit(int n)
         {
-            int proNum = 0;
-            for (int i = 1; ; i++)
+            int d = 1;
+            int count = 9;
+            while (n > d * count)
             {
-                int currentNums = (int)(Math.Pow(10, i) - Math.Pow(10, i - 1)) * i;
-
-                if (n > proNum + currentNums)
-                {
-                    proNum += currentNums;
-                    continue;
-                }
-                int currentRootValue = (int)Math.Pow(10, i - 1) - 1;
-                int value = currentRootValue + (n - proNum) / i + (n - proNum) % i == 0 ? 0 : 1;
-                string valueStr = value.ToString();
-                int index = (n - proNum) % i;
-                char ansChat = valueStr[index];
-                int ans = int.Parse(ansChat.ToString());
-                return ans;
+                n -= d * count;
+                d++;
+                count *= 10;
             }
+            int index = n - 1;
+            Int64 start = (Int64)Math.Pow(10, d - 1);
+            Int64 num = start + index / d;
+            Int64 digitIndex = index % d;
+            int digit = (int)(num / Math.Pow(10, d - digitIndex - 1)) % 10;
+            return digit;
         }
 
         #endregion
