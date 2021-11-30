@@ -470,6 +470,33 @@ namespace LeetCode
 
         #endregion
 
+        #region H 786. 第 K 个最小的素数分数 2021-11-29 21:53:33
+
+        /// <summary>
+        /// https://leetcode-cn.com/problems/k-th-smallest-prime-fraction/
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public int[] KthSmallestPrimeFraction(int[] arr, int k)
+        {
+            int[] ans = new int[2];
+            List<int[]> list = new List<int[]>();
+            int n = arr.Length;
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = i + 1; j < n; j++)
+                {
+                    list.Add(new int[] { arr[i], arr[j] });
+                }
+            }
+            list.Sort((item1, item2) => item1[0] * item2[1] - item2[0] * item1[1]);
+
+            return list[k - 1];
+        }
+
+        #endregion
+
         #region 888. 公平的糖果棒交换 2021-11-11 17:46:58
         public static int[] _888_FairCandySwap(int[] aliceSizes, int[] bobSizes)
         {

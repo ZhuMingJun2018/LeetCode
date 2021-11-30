@@ -17,7 +17,9 @@ namespace LeetCode.UT
         [Test]
         public void Test1()
         {
-            程序员面试金典.Class1.Demo_连续中值();
+            LeetCode.排序 t = new 排序();
+
+            t.KthSmallestPrimeFraction(new int[] { 1, 2, 3, 5 }, 3);
         }
     }
 }
