@@ -254,17 +254,9 @@ namespace LeetCode
                     continue;
                 }
                 int currentRootValue = (int)Math.Pow(10, i - 1) - 1;
-                int value = currentRootValue + (n - proNum) / i;
-                int index = (n - proNum) % i - 1;
-                if ((n - proNum) % i > 0)
-                {
-                    value += 1;
-                }
-                else
-                {
-                    index += 1;
-                }
+                int value = currentRootValue + (n - proNum) / i + (n - proNum) % i == 0 ? 0 : 1;
                 string valueStr = value.ToString();
+                int index = (n - proNum) % i;
                 char ansChat = valueStr[index];
                 int ans = int.Parse(ansChat.ToString());
                 return ans;

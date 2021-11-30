@@ -18,7 +18,7 @@ namespace LeetCode.UT
         public void Test1()
         {
             ≈≈–Ú t = new ≈≈–Ú();
-            t.FindNthDigit(1000);
+            t.FindNthDigit(9);
         }
     }
 }
