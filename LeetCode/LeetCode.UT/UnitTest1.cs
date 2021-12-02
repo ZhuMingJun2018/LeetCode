@@ -1,4 +1,4 @@
-using NUnit.Framework;
+ï»¿using NUnit.Framework;
 
 namespace LeetCode.UT
 {
@@ -17,9 +17,9 @@ namespace LeetCode.UT
         [Test]
         public void Test1()
         {
-            LeetCode.ÅÅĞò t = new ÅÅĞò();
+            LeetCode.å‰ç¼€å’Œ t = new å‰ç¼€å’Œ();
 
-            t.KthSmallestPrimeFraction(new int[] { 1, 2, 3, 5 }, 3);
+            t.MinSubArrayLen(7, 2, 3, 1, 2, 4, 3);
         }
     }
 }
