@@ -17,8 +17,9 @@ namespace LeetCode.UT
         [Test]
         public void Test1()
         {
-            排序 t = new 排序();
-            t.FindMedianSortedArrays(new int[] { 1, 2 }, new int[] { 3,4 });
+            LeetCode.前缀和 t = new 前缀和();
+
+            t.MinSubArrayLen(7, 2, 3, 1, 2, 4, 3);
         }
     }
 }
