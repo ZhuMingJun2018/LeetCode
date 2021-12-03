@@ -68,26 +68,73 @@ namespace LeetCode
 
         #endregion
 
-        #region E 100. 相同的树
+        #region E 100. 相同的树 2021-12-03 10:16:12
 
         public bool IsSameTree(TreeNode p, TreeNode q)
         {
+            Queue<TreeNode> queue = new Queue<TreeNode>();
+
+            queue.Enqueue(p);
+            queue.Enqueue(q);
+
+            while (queue.Any())
+            {
+                p = queue.Dequeue();
+                q = queue.Dequeue();
+
+                if ((p == null) != (q == null)) return false;
+                if (p == null) continue;
+                if (p.val != q.val) return false;
+
+                queue.Enqueue(p.left);
+                queue.Enqueue(q.left);
+
+                queue.Enqueue(p.right);
+                queue.Enqueue(q.right);
+            }
+            return true;
             if ((p == null) != (q == null)) return false;
+            if (p == null) return true;
             if (p.val != q.val) return false;
-            if (p == null && q == null) return true;
             return IsSameTree(p.left, q.left) && IsSameTree(p.right, q.right);
         }
         #endregion
 
-        #region E 101. 对称二叉树
+        #region E 101. 对称二叉树 2021-12-03 10:08:02
         public bool IsSymmetric(TreeNode root)
         {
-
+            return IsSymmetric(root.left, root.right);
         }
 
-        private bool IsSymmetric(TreeNode left, TreeNode treeNode)
+        private bool IsSymmetric(TreeNode left, TreeNode right)
         {
+            if (left == null && right == null) return true;
+            if (left == null || right == null) return false;
+            return left.val == right.val && IsSymmetric(left.left, right.right) && IsSymmetric(left.right, right.left);
+        }
 
+        private bool IsSymmetric_迭代(TreeNode left, TreeNode right)
+        {
+            Queue<TreeNode> q = new Queue<TreeNode>();
+            q.Enqueue(left);
+            q.Enqueue(right);
+
+            while (q.Any())
+            {
+                left = q.Dequeue();
+                right = q.Dequeue();
+
+                if (left == null && right == null) continue;
+
+                if (left == null || right == null || left.val != right.val) return false;
+
+                q.Enqueue(left.left);
+                q.Enqueue(right.right);
+
+                q.Enqueue(left.right);
+                q.Enqueue(right.left);
+            }
+            return true;
         }
 
         #endregion
