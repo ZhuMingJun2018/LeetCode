@@ -48,6 +48,94 @@ namespace LeetCode
 
         #endregion
 
+        #region M 6. Z 字形变换 2021-12-07 11:42:06
+        public string Convert(string s, int numRows)
+        {
+            string[,] chars = new string[s.Length, numRows];
+
+            int column = 0;
+            int row = 0;
+            bool dir = true;
+            for (int index = 0; index < s.Length; index++)
+            {
+                chars[column, row] = s[index].ToString();
+
+                if (dir)
+                {
+                    if (row < numRows - 1)
+                    {
+                        row++;
+                    }
+                    else if (row == numRows - 1)
+                    {
+                        dir = false;
+                        row--;
+                        column++;
+                    }
+                }
+                else
+                {
+                    if (row > 0)
+                    {
+                        row--;
+                        column++;
+                    }
+                    else if (row == 0)
+                    {
+                        dir = true;
+                        row++;
+                        if (numRows == 1)
+                        {
+                            column++;
+                        }
+                    }
+                }
+                row = row < 0 ? 0 : row;
+                row = row == numRows ? numRows - 1 : row;
+            }
+
+            string ans = string.Empty;
+
+            for (int i = 0; i < numRows; i++)
+            {
+                for (int j = 0; j < s.Length; j++)
+                {
+                    if (string.IsNullOrEmpty(chars[j, i])) continue;
+                    ans = string.Concat(ans, chars[j, i]);
+                }
+            }
+
+            return ans;
+        }
+
+        #endregion
+
+        #region H  32. 最长有效括号
+
+        //https://leetcode-cn.com/problems/longest-valid-parentheses/
+        public int LongestValidParentheses(string s)
+        {
+            int mark = 0;
+            int length = 0;
+
+            foreach (var item in s)
+            {
+                if (item == '(')
+                {
+                    mark++;
+                }
+                else if (item == ')' && mark > 0)
+                {
+                    mark--;
+                    length += 2;
+                }
+            }
+
+            return length;
+        }
+
+        #endregion
+
         #region 88. 合并两个有序数组 2021-11-11 13:29:33
         public static void Merge(int[] nums1, int m, int[] nums2, int n)
         {

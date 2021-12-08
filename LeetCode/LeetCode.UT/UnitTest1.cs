@@ -17,9 +17,11 @@ namespace LeetCode.UT
         [Test]
         public void Test1()
         {
-            LeetCode.前缀和 t = new 前缀和();
+            int d = 0;
+            int k = (int)(1 / d);
+            LeetCode.排序 t = new 排序();
 
-            t.MinSubArrayLen(7, 2, 3, 1, 2, 4, 3);
+            t.Convert("ABC", 1);
         }
     }
 }
